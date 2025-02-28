@@ -23,7 +23,7 @@ function Register() {
   );
 
   useEffect(() => {
-    console.log(user, isLoading, isError, isSuccess, message);
+    //console.log(user, isLoading, isError, isSuccess, message);
 
     if (isError) toast.error(message);
     if (isSuccess || user) navigate("/");
