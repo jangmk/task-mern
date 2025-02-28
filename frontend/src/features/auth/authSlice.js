@@ -44,7 +44,7 @@ export const authSlice = createSlice({
         (state.isError = false),
         (state.message = "");
     },
-  },
+  }, // 결국 여기서 useEffect에서 해야 할 걸 하는 거구만
   extraReducers: (builder) => {
     builder
       .addCase(register.pending, (state) => {
@@ -59,6 +59,9 @@ export const authSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
+        state.user = null;
+      })
+      .addCase(logout.fulfilled, (state) => {
         state.user = null;
       });
   },
