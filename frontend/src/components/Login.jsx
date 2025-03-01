@@ -1,9 +1,27 @@
 import { FaSignInAlt } from "react-icons/fa";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { reset } from "../features/tasks/taskSlice";
+import { login } from "../features/auth/authSlice";
+import Spinner from "./Spinner";
 
 function Login() {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const { email, password } = formData;
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const {user,isLoading, isError, isSuccess, message } = useSelector((state)=>state.auth)
+
+  // 같은 값으로 연속 눌렀을 때는 ? 바뀌는 값이 없는뎅!
+  useEffect(()=>{
+    if(isError) toast.error(message);
+    if(isSuccess || user ) navigate("/")
+    dispatch(reset())
+  },[user,isError,isSuccess,message,navigate,dispatch])
+
   const onChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,
@@ -13,9 +31,12 @@ function Login() {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    const userData = {email,password};
+    dispatch(login(userData));
   };
 
   return (
+    isLoading ? <Spinner /> : (
     <>
       <section className="heading">
         <h1>
@@ -53,7 +74,7 @@ function Login() {
           </div>
         </form>
       </section>
-    </>
+    </>)
   );
 }
 
