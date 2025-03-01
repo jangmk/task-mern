@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useDispatch } from "react-redux";
+import { createTask } from "../features/tasks/taskSlice";
 
 function TaskForm() {
   const [ text, setText ] = useState("");
@@ -7,7 +8,7 @@ function TaskForm() {
   
   const onSubmit = (e)=>{
     e.preventDefault();
-    //dispatch(createTask({ text }));
+    dispatch(createTask({ text }));
     setText('');
   }
 
