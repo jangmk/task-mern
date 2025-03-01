@@ -16,7 +16,9 @@ function Dashboard() {
     <>
       <section>
         <h1>Welcome {user && user.name} </h1>
-        <p>Tasks Dashboard</p>
+        <div style={{display:'flex',justifyContent:'center'}}>
+           <button className="btn" onClick={()=> navigate('/alltasks')}>Check Tasks</button>
+        </div>
       </section>
       <TaskForm />
     </>
