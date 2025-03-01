@@ -60,6 +60,7 @@ function Login() {
           <div className="form-group">
             <input
               type="password"
+              autoComplete="true"
               className="form-control"
               name="password"
               value={password}
